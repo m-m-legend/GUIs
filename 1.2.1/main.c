@@ -24,12 +24,16 @@ int main(int argc, char* args[]){
     SDL_RenderDrawLine(ren, 50,30,50,10);
     SDL_Rect bandeira = {50,8,15,15};
     SDL_RenderFillRect(ren, &bandeira);
+    SDL_SetRenderDrawColor(ren, 255,215,0,0x00);
+    SDL_Rect sol = {300,10,15,15};
+    SDL_RenderFillRect(ren, &sol);
+    SDL_SetRenderDrawColor(ren, 27,30,35,0x00);
     SDL_RenderDrawPoint(ren, 60,45);
     SDL_RenderDrawPoint(ren, 70,45);
     SDL_RenderDrawPoint(ren, 80,45);
     SDL_RenderDrawPoint(ren, 90,45);
     SDL_RenderPresent(ren);
-    SDL_Delay(7000);
+    SDL_Delay(5000);
 
     /*FINALIZACAO*/
     SDL_DestroyRenderer(ren);
