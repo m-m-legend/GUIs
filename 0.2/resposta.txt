@@ -1,0 +1,11 @@
+1. Qual o seu interesse por jogos ou aplicações gráficas?
+    -> Tenho interesse em jogos e aprender mais sobre como modelar e implementar minhas ideias criativas utilizando interfaces gráficas, assets variados, engines como a Godot e linguagens de programação mais efetivas. Acredito que aplicações gráficas são parte da base de todos os jogos atuais e como eles funcionam, principalmente os 2D.
+
+2. Quais os jogos você mais gosta?
+    -> Meus jogos favoritos são do gênero RPG e corrida. Gosto de jogos como Pokémon, Castlevania, Assassin's Creed, Need for Speed e etc.
+
+3. Que ferramentas de desenvolvimento você já ouviu falar?
+    -> Já escutei falar da Godot Engine, Unreal Engine, e as linguagens de programação mais básicas para o desenvolvimento de jogos. Também já ouvi falar do Unity.
+4. Quais linguagens de programação você tem mais experiência?
+    -> Tenho mais familiaridade com Java, C e Python. Também já usei JavaScript e HTML um pouco.
+
