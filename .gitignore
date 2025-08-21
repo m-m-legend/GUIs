@@ -1,0 +1,32 @@
+# Executáveis do Windows
+*.exe
+*.dll
+
+# Arquivos de objeto e binários intermediários
+*.o
+*.obj
+*.lib
+*.a
+*.so
+*.out
+
+# Arquivos de debug
+*.pdb
+*.ilk
+
+# Pastas de build
+/build/
+/bin/
+/dist/
+
+# Arquivos temporários do editor/IDE
+.vscode/
+*.log
+
+# Arquivos do sistema
+Thumbs.db
+Desktop.ini
+
+# Makefile
+
+Makefile
