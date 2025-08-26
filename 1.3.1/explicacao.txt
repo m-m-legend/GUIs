@@ -1,0 +1,1 @@
+A animação se baseia em simular a entrada e saída de um personagem (quadrado) por um cômodo quadrado com 2 portas de entrada e saída.
