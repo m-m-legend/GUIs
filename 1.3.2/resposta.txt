@@ -1,0 +1,8 @@
+1. Visualmente, qual o bug do programa?
+2. Como fica evidente o uso de "double buffering"?
+
+-----------------------------------------------------------
+
+1. O bug do programa, visualmente, envolve apresentar a tela branca com o primeiro SDL_RenderPresent(ren), e só depois apresentar o quadrado com o segundo SDL_RenderPresent(ren). Por baixo dos panos, ocorre um "teletransporte" não perceptível do quadrado, que sempre está mudando sua posição de maneira não orgânica pois some no início iterativo por conta do SDL_RenderClear(ren), que sempre "pinta" a tela toda de branco e apaga momentaneamente a posição alterada do quadrado azul. Assim, o bug advém do mau uso do Double Buffering, e da concepção errada de aplicação gráfica. O ideal para aplicações de SDL 2 é utilizar somente SDL_RenderPresent(ren) apenas uma vez por frame, após os desenhos estarem prontos.
+
+2. O Double Buffering fica evidente pelo uso explícito de dois SDL_RenderPresent(ren). Porém, ele somente demonstra visualmente o conceito, pois sem o primeiro deles ele continua acontecendo naturalmente. O conteúdo visível muda 2 vezes por frame e deveria mudar apenas 1 vez. 
