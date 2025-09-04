@@ -1,13 +1,14 @@
 #include <SDL2/SDL.h>
 
-int AUX_WaitEventTimeoutCount(SDL_Event* evt, int ms){
+int AUX_WaitEventTimeoutCount(SDL_Event* evt, int* ms){
     Uint32 antes = SDL_GetTicks();
-    int isevt = SDL_WaitEventTimeout(evt, ms);
-    if(isevt){
-        ms -= (SDL_GetTicks() - antes);
-        return 1;
-    }
-    return 0;
+    int isevt = SDL_WaitEventTimeout(evt, *ms);
+    Uint32 depois = SDL_GetTicks();
+
+    *ms -= (depois - antes);
+    if(*ms < 0) *ms = 0;
+
+    return isevt;
 }
 
 int main(int argc, char** args){
@@ -44,10 +45,10 @@ int main(int argc, char** args){
         if (t.x > 200 - t.w) t.x = 0;
         if (t.y > 100 - t.h) t.y = 0;
 
-        t.x += 10; t.y += 10;
+        t.x += 1; t.y += 1;
         
-        int espera = 200;
-        int isevt = AUX_WaitEventTimeoutCount(&evt, espera);
+        int espera = 7;
+        int isevt = AUX_WaitEventTimeoutCount(&evt, &espera);
         if(isevt){
 
             if(evt.type == SDL_KEYDOWN){
@@ -75,7 +76,7 @@ int main(int argc, char** args){
                     }
 
                     } else{
-                        espera = 200;
+                        espera = 7;
                     }
         
         SDL_RenderPresent(ren);
