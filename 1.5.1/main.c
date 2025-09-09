@@ -30,27 +30,11 @@ int main(int argc, char** args){
 
     SDL_Event evt;
 
-
+    int espera = 25;
     while(!SDL_QuitRequested()){
-        SDL_SetRenderDrawColor(ren, 0xFF, 0xFF, 0xFF, 0x00);
-        SDL_RenderClear(ren);
-        SDL_SetRenderDrawColor(ren, 0x00, 0x00, 0xFF, 0x00);
-        SDL_RenderFillRect(ren, &r); 
-        SDL_RenderFillRect(ren, &t);
-        SDL_RenderFillRect(ren, &l);
-
-        if(t.x > 200 - t.w) t.x = 0;
-        if (t.x < 0) t.x = 0;
-        if (t.y < 0) t.y = 0;
-        if (t.x > 200 - t.w) t.x = 0;
-        if (t.y > 100 - t.h) t.y = 0;
-
-        t.x += 1; t.y += 1;
-        
-        int espera = 7;
+       
         int isevt = AUX_WaitEventTimeoutCount(&evt, &espera);
         if(isevt){
-
             if(evt.type == SDL_KEYDOWN){
                         switch(evt.key.keysym.sym){
                             case SDLK_UP:
@@ -75,9 +59,27 @@ int main(int argc, char** args){
                         l.y = evt.motion.y;
                     }
 
-                    } else{
-                        espera = 7;
                     }
+        if(espera == 0){
+        	t.x += 1; t.y += 1;
+        	
+        if(t.x > 200 - t.w) t.x = 0;
+		if (t.x < 0) t.x = 0;
+		if (t.y < 0) t.y = 0;
+		if (t.x > 200 - t.w) t.x = 0;
+		if (t.y > 100 - t.h) t.y = 0;
+		
+		espera = 25;
+        }
+        SDL_SetRenderDrawColor(ren, 0xFF, 0xFF, 0xFF, 0x00);
+        SDL_RenderClear(ren);
+        SDL_SetRenderDrawColor(ren, 0x00, 0x00, 0xFF, 0x00);
+        SDL_RenderFillRect(ren, &r); 
+        SDL_RenderFillRect(ren, &t);
+        SDL_RenderFillRect(ren, &l);
+        
+
+        
         
         SDL_RenderPresent(ren);
 
