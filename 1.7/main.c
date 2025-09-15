@@ -24,9 +24,7 @@ int main(int argc, char* args[])
         SDL_Log("Erro ao carregar BMP: %s", SDL_GetError());
         return 1;
     }
-
     SDL_SetColorKey(surface, SDL_TRUE, SDL_MapRGB(surface->format, 0x0c, 0x0c, 0x0c));
-
     SDL_Texture* sprite = SDL_CreateTextureFromSurface(ren, surface);
     SDL_FreeSurface(surface);
     if(!sprite){
@@ -34,14 +32,14 @@ int main(int argc, char* args[])
         return 1;
     }
 
-    int frameW = 32;
-    int frameH = 32;
+    int frameW = 20;
+    int frameH = 20;
     int frameCount = 8;
     int frameIndex = 0;
     Uint32 lastFrameTime = SDL_GetTicks();
-    Uint32 frameDelay = 200;
+    Uint32 frameDelay = 120;
 
-    SDL_Rect r = {40, 40, frameW, frameH};
+    SDL_Rect r = {60, 60, frameW, frameH}; 
 
     const int x0 = 40, y0 = 40;
     const int largura = 120, altura = 80;
@@ -71,36 +69,30 @@ int main(int argc, char* args[])
         }
 
         Uint32 now = SDL_GetTicks();
-        
 
         if(espera == 0){
             const Uint8* state = SDL_GetKeyboardState(NULL);
-            if (state[SDL_SCANCODE_DOWN])  r.y += 1;
-            if (state[SDL_SCANCODE_UP])    r.y -= 1;
-            if (state[SDL_SCANCODE_LEFT])  r.x -= 1;
-            if (state[SDL_SCANCODE_RIGHT]) r.x += 1;
+            int dx = 0, dy = 0;
 
-            bool isMoving = state[SDL_SCANCODE_DOWN] || state[SDL_SCANCODE_UP] ||
-                state[SDL_SCANCODE_LEFT] || state[SDL_SCANCODE_RIGHT];
+            if (state[SDL_SCANCODE_DOWN])  dy = 1;
+            if (state[SDL_SCANCODE_UP])    dy = -1;
+            if (state[SDL_SCANCODE_LEFT])  dx = -1;
+            if (state[SDL_SCANCODE_RIGHT]) dx = 1;
 
+            r.x += dx;
+            r.y += dy;
+
+            bool isMoving = (dx != 0 || dy != 0);
             if(isMoving && now - lastFrameTime > frameDelay){
-            frameIndex = (frameIndex + 1) % frameCount;
-            lastFrameTime = now;
-        }
-
-            if (r.x < 0) r.x = 0;
-            if (r.y < 0) r.y = 0;
-            if (r.x > 300 - r.w) r.x = 300 - r.w;
-            if (r.y > 200 - r.h) r.y = 200 - r.h;
+                frameIndex = (frameIndex + 1) % frameCount;
+                lastFrameTime = now;
+            }
 
             int dentroComodo = (r.x + r.w > x0 && r.x < x0 + largura && r.y + r.h > y0 && r.y < y0 + altura);
             if (dentroComodo) {
-                if (r.x < x0) {
-                    r.x = x0;
-                }
-                if (r.y < y0) {
-                    r.y = y0;
-                }
+                if (r.x < x0) r.x = x0;
+                if (r.y < y0) r.y = y0;
+
                 if (r.x + r.w > x0 + largura) {
                     if (!estadoPortaDireita || !(r.y + r.h > portaDireita.y && r.y < portaDireita.y + portaDireita.h)) {
                         r.x = x0 + largura - r.w;
@@ -112,6 +104,7 @@ int main(int argc, char* args[])
                     }
                 }
             }
+
             espera = 25;
         }
 
@@ -140,3 +133,5 @@ int main(int argc, char* args[])
     SDL_Quit();
     return 0;
 }
+
+
