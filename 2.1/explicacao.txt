@@ -1,0 +1,5 @@
+Este programa em SDL2 detecta múltiplos cliques do mouse dentro de um intervalo de 250ms.
+Cada sequência de cliques gera um evento personalizado (SDL_USEREVENT) contendo o número de cliques.
+O comportamento é o seguinte:
+- 2 cliques: alterna a cor da tela entre amarelo e azul.
+- 3 cliques: limpa a tela e desenha um círculo branco no fundo preto.
