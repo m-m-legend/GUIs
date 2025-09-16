@@ -52,8 +52,9 @@ int main(int argc, char* args[])
     int espera = 25;
 
     SDL_Event evt;
-
+	int i = 0;
     while (!SDL_QuitRequested()) {
+    	
         int isevt = AUX_WaitEventTimeoutCount(&evt, &espera);
         if(isevt){
             if (evt.type == SDL_MOUSEBUTTONDOWN) {
@@ -74,17 +75,29 @@ int main(int argc, char* args[])
             const Uint8* state = SDL_GetKeyboardState(NULL);
             int dx = 0, dy = 0;
 
-            if (state[SDL_SCANCODE_DOWN])  dy = 1;
-            if (state[SDL_SCANCODE_UP])    dy = -1;
-            if (state[SDL_SCANCODE_LEFT])  dx = -1;
-            if (state[SDL_SCANCODE_RIGHT]) dx = 1;
+            if (state[SDL_SCANCODE_DOWN]) {
+              dy = 1;
+              frameIndex = 4;
+             }
+            if (state[SDL_SCANCODE_UP]) {
+              dy = -1;
+              frameIndex = 0;
+             }
+            if (state[SDL_SCANCODE_LEFT]) {
+              dx = -1;
+              frameIndex = 6;
+             }
+            if (state[SDL_SCANCODE_RIGHT]) {
+              dx= 1;
+              frameIndex = 2;
+             }
 
             r.x += dx;
             r.y += dy;
 
             bool isMoving = (dx != 0 || dy != 0);
             if(isMoving && now - lastFrameTime > frameDelay){
-                frameIndex = (frameIndex + 1) % frameCount;
+                frameIndex = frameIndex + i%2;
                 lastFrameTime = now;
             }
 
@@ -125,6 +138,7 @@ int main(int argc, char* args[])
         SDL_RenderCopy(ren, sprite, &srcRect, &r);
 
         SDL_RenderPresent(ren);
+        i++;
     }
 
     SDL_DestroyRenderer(ren);
@@ -133,5 +147,4 @@ int main(int argc, char* args[])
     SDL_Quit();
     return 0;
 }
-
 
