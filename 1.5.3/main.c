@@ -1,5 +1,16 @@
 #include <SDL2/SDL.h>
 
+int AUX_WaitEventTimeoutCount(SDL_Event* evt, int* ms){
+    Uint32 antes = SDL_GetTicks();
+    int isevt = SDL_WaitEventTimeout(evt, *ms);
+    Uint32 depois = SDL_GetTicks();
+
+    *ms -= (depois - antes);
+    if(*ms < 0) *ms = 0;
+
+    return isevt;
+}
+
 int main(int argc, char* args[])
 {
     SDL_Init(SDL_INIT_EVERYTHING);
@@ -21,9 +32,11 @@ int main(int argc, char* args[])
     int estadoPortaBaixo   = 0;
 
     SDL_Event evt;
+    int espera = 25;
 
     while (!SDL_QuitRequested()) {
-        while (SDL_PollEvent(&evt)) {
+        int isevt = AUX_WaitEventTimeoutCount(&evt, &espera);
+        if(isevt){
             if (evt.type == SDL_MOUSEBUTTONDOWN) {
                 if (evt.button.x >= portaDireita.x && evt.button.x < portaDireita.x + portaDireita.w &&
                     evt.button.y >= portaDireita.y && evt.button.y < portaDireita.y + portaDireita.h) {
@@ -35,6 +48,7 @@ int main(int argc, char* args[])
                 }
             }
         }
+    
 
         const Uint8* state = SDL_GetKeyboardState(NULL);
         if (state[SDL_SCANCODE_DOWN])  r.y += 1;
