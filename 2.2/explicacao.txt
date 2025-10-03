@@ -1,0 +1,1 @@
+O comportamento do programa se baseia em uma máquina de estados que separa os símbolos da máquina(eventos possíveis) como estímulos para a mudança de estados, que são o IDLE, DRAGGING, CLICKED, PRESSED e ABORTED.
